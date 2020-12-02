@@ -22,15 +22,14 @@ namespace AdventOfCode2020.Shared
         {
             Console.WriteLine("Do you want to solve Part 1 or 2?");
             var inputConsole = Convert.ToDouble(Console.ReadLine());
-            
+            GatherInput();
             switch (inputConsole)
             {
                 case 1:
-                    GatherInput();
+                    
                     Puzzle1();
                     break;
                 case 2:
-                    GatherInput();
                     Puzzle2();
                     break;
                 default:
