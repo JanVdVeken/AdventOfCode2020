@@ -31,7 +31,6 @@ namespace AdventOfCode2020.Shared
                     break;
                 default:
                     Console.WriteLine($"Not implemented");
-                    //timer.Stop();
                     HandleSelect();
                     break;
             }
@@ -45,9 +44,8 @@ namespace AdventOfCode2020.Shared
             Console.Clear();
         }
         public string GetFilePath()
-        //@Plat wat is die assembly?
         {
-            return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $@"input.txt");
+            return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $@"Input{DayNumber}.txt");
         }
         public abstract void ReadFile();
 
