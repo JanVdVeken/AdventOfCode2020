@@ -53,9 +53,9 @@ namespace AdventOfCode2020.Days
             Console.WriteLine(temp);
         }
 
-        public override void ReadFile()
+        public override void GatherInput()
         {
-            input = File.ReadAllLines(GetFilePath()).Select(int.Parse).ToList();
+            input = ReadFile().Select(int.Parse).ToList();
         }
     }
 }

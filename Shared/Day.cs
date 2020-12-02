@@ -1,6 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using Shared;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace AdventOfCode2020.Shared
@@ -24,9 +26,11 @@ namespace AdventOfCode2020.Shared
             switch (inputConsole)
             {
                 case 1:
+                    GatherInput();
                     Puzzle1();
                     break;
                 case 2:
+                    GatherInput();
                     Puzzle2();
                     break;
                 default:
@@ -43,11 +47,15 @@ namespace AdventOfCode2020.Shared
             Console.ReadKey();
             Console.Clear();
         }
-        public string GetFilePath()
+        protected IEnumerable<string> ReadFile()
         {
-            return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), $@"Input{DayNumber}.txt");
+            var resources = Assembly.GetCallingAssembly().GetManifestResourceNames().ToList();
+            using Stream stream = Assembly.GetCallingAssembly().GetManifestResourceStream(resources.Single(x => x.EndsWith("Input.txt")));
+            using StreamReader reader = new StreamReader(stream);
+            return reader.ReadAllLines().ToArray();
         }
-        public abstract void ReadFile();
+
+        public abstract void GatherInput();
 
         public abstract void Puzzle1();
 

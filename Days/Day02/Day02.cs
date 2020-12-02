@@ -34,9 +34,9 @@ namespace AdventOfCode2020.Days
 
         }
 
-        public override void ReadFile()
+        public override void GatherInput()
         {
-            var tempInput = File.ReadAllLines(GetFilePath());
+            var tempInput = ReadFile().ToList();
             foreach(string inputString in tempInput)
             {
                 var temp = inputString.Split(": ");

@@ -5,13 +5,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Shared.csproj" />
+    <None Remove="Input.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Input1.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <EmbeddedResource Include="Input.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>
