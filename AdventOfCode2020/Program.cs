@@ -15,16 +15,24 @@ namespace AdventOfCode2020
         };
         static void Main(string[] args)
         {
-            while (true)
+            bool keepOnGoing = true;
+            while (keepOnGoing)
             {
-                Console.WriteLine("Which Day do you want ?");
-                days.Where(x => x.Title != null).ToList().ForEach(x => x.PrintInfo());
-                var selectedDayNumber = Convert.ToInt32(Console.ReadLine());
-                var selectedDay = days.First(x => x.DayNumber == Convert.ToInt32(selectedDayNumber));
-                //Execute the correct puzzle
-                selectedDay.HandleSelect();
-                //Go back to the overview menu
-                selectedDay.Deselect();
+                try
+                {
+                    Console.WriteLine("Which Day do you want ?");
+                    days.Where(x => x.Title != null).ToList().ForEach(x => x.PrintInfo());
+                    var selectedDayNumber = Convert.ToInt32(Console.ReadLine());
+                    var selectedDay = days.First(x => x.DayNumber == Convert.ToInt32(selectedDayNumber));
+                    //Execute the correct puzzle
+                    selectedDay.HandleSelect();
+                    //Go back to the overview menu
+                    selectedDay.Deselect();
+                }
+                catch
+                {
+                    keepOnGoing = false;
+                };
             }
         }
     }

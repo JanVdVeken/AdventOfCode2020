@@ -36,7 +36,7 @@ namespace Days.Day02
         {
             bool FirstLocation = Character == StringToCheck[MinOccur-1];
             bool LastLocation = Character == StringToCheck[MaxOccur-1];
-            return !(FirstLocation && LastLocation) && (FirstLocation || LastLocation);
+            return FirstLocation ^ LastLocation;
         }
 
     }
