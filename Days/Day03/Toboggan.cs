@@ -32,7 +32,6 @@ namespace Days.Day03
                 if(map[yPos][xPos%width] == '#')
                 {
                     treeHits += 1;
-                    //Console.WriteLine($"Hit on xPos = {xPos}, yPos = {yPos}");
                 }
 
                 yPos += yIncrement;
