@@ -29,7 +29,7 @@ namespace Days.Day03
             int lenght = map.Length; //Lengte van de eerste kolom
             while(yPos < lenght)
             {
-                if(map[yPos][xPos] == '#')
+                if(map[yPos][xPos%width] == '#')
                 {
                     treeHits += 1;
                     //Console.WriteLine($"Hit on xPos = {xPos}, yPos = {yPos}");
@@ -37,12 +37,7 @@ namespace Days.Day03
 
                 yPos += yIncrement;
                 xPos += xIncrement;
-                
-                if(xPos > width -1)
-                {
-                    xPos = xPos - width;
-                }
-                //Console.WriteLine($"xPos = {xPos}, yPos = {yPos}");
+
             }
             return treeHits;
         }
