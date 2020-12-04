@@ -56,14 +56,11 @@ namespace AdventOfCode2020.Days
                     formattedInputs.Add(sb.ToString());
                     sb.Clear();
                 }
-                if (line == lines.Last())
-                {
-                    formattedInputs.Add(sb.ToString());
-                    sb.Clear();
-                }
             }
+            formattedInputs.Add(sb.ToString());
+            sb.Clear();
 
-            foreach (string formattedLine in formattedInputs)
+            foreach (string formattedLine in formattedInputs.Where(x => x.Trim() != string.Empty))
             {
                 Console.WriteLine(formattedLine.Trim());
                 input.Add(new Passport(formattedLine.Trim()));
