@@ -10,16 +10,7 @@ namespace AdventOfCode2020.Days
     public class Day04 : Day
     {
         private List<Passport> input;
-        public Day04()
-        {
-            DayNumber = 4;
-            Title = "Passport Processing";
-            input = new List<Passport>();
-        }
-
-        public override void Puzzle1()
-        {
-            List<string> needsToExist = new List<string>()
+        List<string> needsToExist = new List<string>()
             {
                 "byr",
                 "iyr",
@@ -30,6 +21,16 @@ namespace AdventOfCode2020.Days
                 "pid",
                 //"cid",
             };
+        public Day04()
+        {
+            DayNumber = 4;
+            Title = "Passport Processing";
+            input = new List<Passport>();
+        }
+
+        public override void Puzzle1()
+        {
+
             var validPassports = input.Count(x => x.CheckIfKeysExists(needsToExist));
             Console.WriteLine($"We got {validPassports} valid passports.");
 
@@ -37,7 +38,8 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
-            
+            var validPassports = input.Count(x => x.CheckIfPassportIsValid(needsToExist));
+            Console.WriteLine($"We got {validPassports} valid passports.");
         }
 
         public override void GatherInput()
