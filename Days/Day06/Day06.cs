@@ -22,7 +22,7 @@ namespace AdventOfCode2020.Days
             foreach(GroupOfAnswers group in input)
             {
                 amount += group.returnKeySize();
-                Console.WriteLine(group.answers.Keys.Count());
+
             }
 
             Console.WriteLine($"We've got {amount} yes answers");
@@ -30,7 +30,13 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
-
+            int amount = 0;
+            foreach (GroupOfAnswers group in input)
+            {
+                //Console.WriteLine($"{group.sharedAnswers.Count}");
+                amount += group.sharedAnswers.Count(x=> x.Value == true);
+            }
+            Console.WriteLine($"We've got {amount} shared yes answers");
         }
 
         public override void GatherInput()
@@ -42,7 +48,7 @@ namespace AdventOfCode2020.Days
             {
                 if (!string.Equals(line, string.Empty))
                 {
-                    sb.Append(line.Trim());
+                    sb.Append(line.Trim() + " ");
                 }
                 else
                 {

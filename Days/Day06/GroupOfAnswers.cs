@@ -8,27 +8,66 @@ namespace Days.Day06
 {
     class GroupOfAnswers
     {
-        public Dictionary<char, int> answers = new Dictionary<char, int>();
-
+        public Dictionary<char, int> allAnswers = new Dictionary<char, int>();
+        public Dictionary<char,bool> sharedAnswers = new Dictionary<char,bool>();
         public GroupOfAnswers(string input)
         {
-            foreach (char character in input)
+            fillAllAnswers(input);
+            FillSharedAnswers(input);
+        }
+
+        public void fillAllAnswers(string input)
+        {
+            foreach (char character in input.Replace(" ",""))
             {
-                if (answers.ContainsKey(character))
+                if (allAnswers.ContainsKey(character))
                 {
-                    answers[character] += 1;
+                    allAnswers[character] += 1;
                 }
                 else
                 {
-                    answers.Add(character,1);
+                    allAnswers.Add(character, 1);
                 }
             }
         }
 
+        public void FillSharedAnswers(string input)
+        {
+            var group = input.Split(" ");
+            foreach (string person in group)
+            {
+                Console.WriteLine(person);
+                if(person == group.First())
+                {
+                    foreach(char character in person)
+                    {
+                        if(!sharedAnswers.ContainsKey(character))
+                        { 
+                            sharedAnswers.Add(character, true); 
+                        }
+                        
+                    }
+                    
+                }
+                else
+                {
+                    foreach(char character in sharedAnswers.Keys)
+                    {
+                        if (!person.Contains(character))
+                        {
+                            sharedAnswers[character] = false;
+                        }
+                    }
+                }
+            }
+            //Console.WriteLine(sharedAnswers.Count(x => x.Value == true));
+        }
+
+
         public int returnKeySize()
         {
             //Console.WriteLine($"Group with total: {answers.Keys.Count}");
-            return answers.Keys.Count();
+            return allAnswers.Keys.Count();
         }
     }
 }
