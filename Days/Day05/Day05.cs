@@ -31,7 +31,21 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
-
+            List<int> allPositions = new List<int>();
+            foreach (string inputline in input)
+            {
+                int currentRow = calcRow(127, inputline.Substring(0, inputline.Length - 3));
+                int currentColumn = calcColumn(7, inputline.Substring(inputline.Length - 3));
+                allPositions.Add(currentRow*8 + currentColumn);
+            }
+            allPositions.Sort();
+            for(int i = 1; i < allPositions.Count()-1;i++)
+            {
+                if((allPositions[i] + 1) != allPositions[i+1])
+                {
+                    Console.WriteLine($"Your seat is {allPositions[i] +1}");
+                }
+            }
         }
 
         public override void GatherInput()
