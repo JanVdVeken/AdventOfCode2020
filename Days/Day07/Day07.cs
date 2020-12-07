@@ -10,6 +10,7 @@ namespace AdventOfCode2020.Days
     public class Day07 : Day
     {
         private List<Bag> input = new List<Bag>();
+        
         public Day07()
         {
             DayNumber = 7;
@@ -18,10 +19,17 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle1()
         {
-           foreach(Bag luggage in input)
-            {
-                luggage.printBagInfo();
-            }
+            string bagToFind = "shiny gold";
+            var ans = input.Count(x => x.checkIfThisOrChildContiansBag(bagToFind, input));
+            //foreach(Bag luggage in input)
+            //{
+            //    luggage.printBagInfo();
+            //    Console.WriteLine(luggage.checkIfThisOrChildContiansBag("shiny gold", input));
+            //    ans += luggage.checkIfThisOrChildContiansBag(bagToFind, input);
+            //}
+            Console.WriteLine($"We've found {bagToFind} bag {ans} times");
+
+
         }
 
         public override void Puzzle2()

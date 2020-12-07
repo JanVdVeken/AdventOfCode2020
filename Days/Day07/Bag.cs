@@ -24,6 +24,7 @@ namespace Days.Day07
             {
                 if(string.Equals(child, "no other "))
                 {
+                    children.Add("no other",0);
                 }
                 else
                 {
@@ -34,7 +35,6 @@ namespace Days.Day07
             }
         }
 
-
         public void printBagInfo()
         {
             Console.WriteLine($"This bag ({name}) contains the following bag(s):");
@@ -43,6 +43,32 @@ namespace Days.Day07
                 Console.WriteLine($"\t => {children[key]} {key}");
             };
 
+        }
+
+        public bool checkIfThisOrChildContiansBag(string goalBag, List<Bag> allBags)
+        {
+            var ans = false;
+            foreach(var key in children.Keys)
+            {
+                if (key.Equals(goalBag) || key.Equals("no other"))
+                {
+                    if(key.Equals(goalBag))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
+                }
+                else
+                {
+                    ans = ans || allBags.Single(x => x.name.Equals(key)).checkIfThisOrChildContiansBag(goalBag,allBags);
+                }
+            }
+
+            return ans; //I've included this, because it was complaining about not always returning an int...
         }
     }
 }
