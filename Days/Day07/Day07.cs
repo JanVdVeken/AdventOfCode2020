@@ -20,7 +20,7 @@ namespace AdventOfCode2020.Days
         public override void Puzzle1()
         {
             string bagToFind = "shiny gold";
-            var ans = input.Count(x => x.checkIfThisOrChildContiansBag(bagToFind, input));
+            var ans = input.Count(x => x.checkIfThisOrChildContainsBag(bagToFind, input));
             Console.WriteLine($"We've found {bagToFind} bag {ans} times");
         }
 

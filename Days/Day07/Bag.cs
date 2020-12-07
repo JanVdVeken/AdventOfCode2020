@@ -16,8 +16,6 @@ namespace Days.Day07
         public Bag(string nameInput, string childrenInput)
         {
             Regex re = new Regex(@"(\d+)([a-zA-Z ]+)");
-
-
             name = nameInput;
             var childrenArray = childrenInput.Split("bag");
             foreach(string child in childrenArray.Where(x => !x.Contains(".")))
@@ -45,7 +43,7 @@ namespace Days.Day07
 
         }
 
-        public bool checkIfThisOrChildContiansBag(string goalBag, List<Bag> allBags)
+        public bool checkIfThisOrChildContainsBag(string goalBag, List<Bag> allBags)
         {
             var ans = false;
             foreach(var key in children.Keys)
@@ -64,7 +62,7 @@ namespace Days.Day07
                 }
                 else
                 {
-                    ans = ans || allBags.Single(x => x.name.Equals(key)).checkIfThisOrChildContiansBag(goalBag,allBags);
+                    ans = ans || allBags.Single(x => x.name.Equals(key)).checkIfThisOrChildContainsBag(goalBag,allBags);
                 }
             }
 
@@ -76,7 +74,7 @@ namespace Days.Day07
             var ans = 1;
             foreach (var key in children.Keys)
             {
-                Console.WriteLine($"This bag = {name}");
+                //Console.WriteLine($"This bag = {name}");
                 if (key.Equals("no other"))
                 {
                     {
