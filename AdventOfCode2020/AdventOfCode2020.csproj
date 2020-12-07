@@ -12,6 +12,7 @@
     <ProjectReference Include="..\Days\Day04\Day04.csproj" />
     <ProjectReference Include="..\Days\Day05\Day05.csproj" />
     <ProjectReference Include="..\Days\Day06\Day06.csproj" />
+    <ProjectReference Include="..\Days\Day07\Day07.csproj" />
   </ItemGroup>
 
 </Project>
