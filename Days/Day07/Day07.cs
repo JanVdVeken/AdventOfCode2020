@@ -29,7 +29,7 @@ namespace AdventOfCode2020.Days
             string bagToFind = "shiny gold";
             var ans = input.Single(x => x.name.Equals(bagToFind)).CountHowManyBagsInsideThisOne(input);
 
-            Console.WriteLine($"We've {ans - 1} found bags in {bagToFind}");
+            Console.WriteLine($"We've found {ans - 1} bags in {bagToFind}");
         }
 
         public override void GatherInput()
