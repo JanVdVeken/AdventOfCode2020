@@ -1,6 +1,7 @@
 ﻿using Shared;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -21,15 +22,13 @@ namespace AdventOfCode2020.Shared
         public void HandleSelect()
         {
             Console.WriteLine("Do you want to solve Part 1 or 2?");
-            var inputConsole = Convert.ToDouble(Console.ReadLine());
             GatherInput();
-            switch (inputConsole)
+            switch (Console.ReadLine())
             {
-                case 1:
-                    
+                case "1":
                     Puzzle1();
                     break;
-                case 2:
+                case "2":
                     Puzzle2();
                     break;
                 default:
@@ -59,6 +58,5 @@ namespace AdventOfCode2020.Shared
         public abstract void Puzzle1();
 
         public abstract void Puzzle2();
-
     }
 }

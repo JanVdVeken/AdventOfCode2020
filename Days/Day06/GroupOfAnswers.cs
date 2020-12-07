@@ -36,7 +36,7 @@ namespace Days.Day06
             var group = input.Split(" ");
             foreach (string person in group)
             {
-                Console.WriteLine(person);
+                //Console.WriteLine(person);
                 if(person == group.First())
                 {
                     foreach(char character in person)

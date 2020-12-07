@@ -9,7 +9,7 @@ namespace AdventOfCode2020.Days
 {
     public class Day07 : Day
     {
-        private List<Bag> input = new List<Bag>();
+        private List<Bag> input;
         
         public Day07()
         {
@@ -34,6 +34,7 @@ namespace AdventOfCode2020.Days
 
         public override void GatherInput()
         {
+            input = new List<Bag>();
             var lines = ReadFile().ToList();
             foreach (string line in lines)
             {
