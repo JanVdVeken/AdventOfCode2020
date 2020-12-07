@@ -10,7 +10,7 @@ namespace Days.Day07
 
     class Bag
     {
-        string name;
+        public string name;
         Dictionary<string, int> children = new Dictionary<string, int>();
 
         public Bag(string nameInput, string childrenInput)
@@ -69,6 +69,27 @@ namespace Days.Day07
             }
 
             return ans; //I've included this, because it was complaining about not always returning an int...
+        }
+
+        public int CountHowManyBagsInsideThisOne(List<Bag> allBags)
+        {
+            var ans = 1;
+            foreach (var key in children.Keys)
+            {
+                Console.WriteLine($"This bag = {name}");
+                if (key.Equals("no other"))
+                {
+                    {
+                        return ans;
+                    }
+                }
+                else
+                {
+                    ans += children[key] * allBags.Single(x => x.name.Equals(key)).CountHowManyBagsInsideThisOne(allBags);
+                }
+            }
+
+            return ans;
         }
     }
 }

@@ -21,19 +21,15 @@ namespace AdventOfCode2020.Days
         {
             string bagToFind = "shiny gold";
             var ans = input.Count(x => x.checkIfThisOrChildContiansBag(bagToFind, input));
-            //foreach(Bag luggage in input)
-            //{
-            //    luggage.printBagInfo();
-            //    Console.WriteLine(luggage.checkIfThisOrChildContiansBag("shiny gold", input));
-            //    ans += luggage.checkIfThisOrChildContiansBag(bagToFind, input);
-            //}
             Console.WriteLine($"We've found {bagToFind} bag {ans} times");
-
-
         }
 
         public override void Puzzle2()
         {
+            string bagToFind = "shiny gold";
+            var ans = input.Single(x => x.name.Equals(bagToFind)).CountHowManyBagsInsideThisOne(input);
+
+            Console.WriteLine($"We've {ans - 1} found bags in {bagToFind}");
         }
 
         public override void GatherInput()
