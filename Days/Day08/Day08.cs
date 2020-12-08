@@ -25,7 +25,8 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
-
+            HandheldConsole gameConsole = new HandheldConsole(input);
+            gameConsole.ExecuteInstructionsWithoutCorrupt();
         }
 
         public override void GatherInput()
