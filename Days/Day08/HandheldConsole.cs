@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Days.Day08
+{
+    
+    class HandheldConsole
+    {
+        Dictionary<int, int> executedInstructions;
+        List<string> instructions;
+        int acc;
+
+        public HandheldConsole(List<string> input)
+        {
+            executedInstructions = new Dictionary<int, int>();
+            instructions = input;
+            acc = 0;
+        }
+
+        public void ExecuteInstructions()
+        {
+            for(int i = 0;i < instructions.Count();i++)
+            {
+                //First => Check if we already did this instruction
+                if (executedInstructions.ContainsKey(i))
+                {
+                    Console.WriteLine($"At the start of the inifinite loop, we got {acc} in the accumulater");
+                    break;
+                }
+                else
+                {
+                    executedInstructions.Add(i, 1);
+                }
+
+                //Second => Do instructions
+                
+                var temp = instructions[i].Split(" ");
+                var instruction = temp[0];
+                var value = temp[1];
+
+                switch(instruction)
+                {
+                    case "acc":
+                        acc += int.Parse(value);
+                        break;
+                    case "nop":
+                        break;
+
+                    case "jmp":
+                        i += int.Parse(value) -1;
+                        break;
+                }
+                
+            }
+        }
+    }
+
+
+}

@@ -1,4 +1,5 @@
 ﻿using AdventOfCode2020.Shared;
+using Days.Day08;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,15 +14,13 @@ namespace AdventOfCode2020.Days
         public Day08()
         {
             DayNumber = 8;
-            Title = "TBD";
+            Title = "Handheld Halting";
         }
 
         public override void Puzzle1()
         {
-            foreach(string line in input)
-            {
-                Console.WriteLine(line);
-            }
+            HandheldConsole gameConsole = new HandheldConsole(input);
+            gameConsole.ExecuteInstructions();
         }
 
         public override void Puzzle2()
@@ -31,7 +30,7 @@ namespace AdventOfCode2020.Days
 
         public override void GatherInput()
         {
-            var lines = ReadFile().ToList();
+            input = ReadFile().ToList();
         }
 
     }
