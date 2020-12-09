@@ -9,7 +9,7 @@ namespace Days.Day09
     class XMAS
     {
 
-        public static bool CheckIfsSumCanBeMade(long input, List<long> preamble)
+        public static bool CheckIfSumCanBeMade(long input, List<long> preamble)
         {
             for(int i = 0; i < preamble.Count();i++)
             {
@@ -22,6 +22,11 @@ namespace Days.Day09
                 }
             }
             return false;
+        }
+
+        public static bool CheckIfSumCanBeMadeInList(long input, List<long> listToCheck)
+        {
+            return input == listToCheck.Sum();
         }
     }
 }

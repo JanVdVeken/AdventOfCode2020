@@ -22,7 +22,7 @@ namespace AdventOfCode2020.Days
             int preambleSize = 25;
             for(int i = preambleSize; i < input.Count(); i++)
             {
-                if (!XMAS.CheckIfsSumCanBeMade((input[i]), input.GetRange(i - preambleSize, preambleSize)))
+                if (!XMAS.CheckIfSumCanBeMade((input[i]), input.GetRange(i - preambleSize, preambleSize)))
                 {
                     Console.WriteLine($"{input[i]} Can't be made by combining 2 digits of the preamble");
                     break;
@@ -32,6 +32,30 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
+            int preambleSize = 25;
+            int wrongPosition = 0;
+            for (int i = preambleSize; i < input.Count(); i++)
+            {
+                if (!XMAS.CheckIfSumCanBeMade((input[i]), input.GetRange(i - preambleSize, preambleSize)))
+                {
+                    Console.WriteLine($"{input[i]} Can't be made by combining 2 digits of the preamble");
+                    wrongPosition = i;
+                    break;
+                }
+            }
+
+            for(int j =0; j< input.Count(); j++)
+            {
+                for(int k = 2 ; k <= input.Count() - j; k++)
+                {
+                    if(XMAS.CheckIfSumCanBeMadeInList(input[wrongPosition],input.GetRange(j,k)))
+                    {
+                        long smallestNumber = input.GetRange(j, k).Min();
+                        long biggestNumber = input.GetRange(j, k).Max();
+                        Console.WriteLine($"The sum of {smallestNumber} and {biggestNumber} equals {smallestNumber + biggestNumber}");
+                    }
+                }
+            }
 
         }
 
