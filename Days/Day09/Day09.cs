@@ -1,5 +1,5 @@
 ﻿using AdventOfCode2020.Shared;
-//using Days.Day09;
+using Days.Day09;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +9,25 @@ namespace AdventOfCode2020.Days
 {
     public class Day09 : Day
     {
-        private List<string> input = new List<string>();
+        private List<long> input = new List<long>();
 
         public Day09()
         {
             DayNumber = 9;
-            Title = "TBD";
+            Title = "Encoding Error";
         }
 
         public override void Puzzle1()
         {
+            int preambleSize = 25;
+            for(int i = preambleSize; i < input.Count(); i++)
+            {
+                if (!XMAS.CheckIfsSumCanBeMade((input[i]), input.GetRange(i - preambleSize, preambleSize)))
+                {
+                    Console.WriteLine($"{input[i]} Can't be made by combining 2 digits of the preamble");
+                    break;
+                }
+            }
         }
 
         public override void Puzzle2()
@@ -28,7 +37,7 @@ namespace AdventOfCode2020.Days
 
         public override void GatherInput()
         {
-            input = ReadFile().ToList();
+            input = ReadFile().Select(long.Parse).ToList();
         }
 
     }
