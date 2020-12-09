@@ -19,7 +19,7 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle1()
         {
-
+            Console.WriteLine(input.First());   
         }
 
         public override void Puzzle2()
