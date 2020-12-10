@@ -2,6 +2,7 @@
 using Days.Day10;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -10,6 +11,9 @@ namespace AdventOfCode2020.Days
     public class Day10 : Day
     {
         private List<Adapter> inputs = new List<Adapter>();
+        private List<Adapter> sortedInput = new List<Adapter>();
+
+        private Dictionary<int, long> tempPuzzle2 = new Dictionary<int, long>(); 
 
         public Day10()
         {
@@ -21,9 +25,6 @@ namespace AdventOfCode2020.Days
         {
             
             Dictionary<int, int> countSteps = new Dictionary<int, int>();
-
-            var sortedInput = inputs.OrderBy(x => x.ownJolts).ToList();
-
             sortedInput.ForEach(x => x.PrintInfo());
 
             for (int i = 1; i < sortedInput.Count(); i++)
@@ -57,8 +58,41 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
+            Dictionary<int, int> countSteps = new Dictionary<int, int>();
 
+            var sortedInput = inputs.OrderBy(x => x.ownJolts).ToList();
+            Stopwatch watch = new Stopwatch();
+            watch.Start();
+            Console.WriteLine(CountPossibilities(0));
+            watch.Stop();
+            Console.WriteLine($"In slechts {watch.ElapsedMilliseconds} ms");
+        }
 
+        
+        public long CountPossibilities(int input)
+        {
+            tempPuzzle2.Add(input, ans);
+
+            if (input == sortedInput.Count -1)
+            {
+                return 1;
+            }
+            if (tempPuzzle2.ContainsKey(input))
+            {
+                return tempPuzzle2[input];
+            }
+
+            long ans = 0; 
+            for (int i = input + 1; i < sortedInput.Count; i ++)
+            {
+                if(sortedInput[i].ownJolts - sortedInput[input].ownJolts <= 3)
+                {
+                    ans += CountPossibilities(i);
+                }
+            }
+            
+            Console.WriteLine(ans);
+            return ans;
         }
 
         public override void GatherInput()
@@ -73,6 +107,8 @@ namespace AdventOfCode2020.Days
             inputs.Add(new Adapter(0, max));
             //Adding last one
             inputs.Add(new Adapter(max, 0));
+
+            sortedInput = inputs.OrderBy(x => x.ownJolts).ToList();
         }
     }
 }
