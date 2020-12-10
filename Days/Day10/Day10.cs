@@ -19,33 +19,38 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle1()
         {
-            inputs.ForEach(x => x.PrintInfo());
-            List<Adapter> checkedList = new List<Adapter>();
+            
             Dictionary<int, int> countSteps = new Dictionary<int, int>();
-            int currentJolts = 0;
 
-            while (checkedList.Count() != inputs.Count())
+            var sortedInput = inputs.OrderBy(x => x.ownJolts).ToList();
+
+            sortedInput.ForEach(x => x.PrintInfo());
+
+            for (int i = 1; i < sortedInput.Count(); i++)
             {
-                Console.WriteLine($"{inputs.First().rangeOfReceivingJolts()[0]} {inputs.First().rangeOfReceivingJolts()[1]}");
-                int newJolts = inputs.Where(x => Enumerable.Range(x.rangeOfReceivingJolts()[0], x.rangeOfReceivingJolts()[1]).Contains(currentJolts)).ToList().Min(y => y.ownJolts);
-                
-                if (countSteps.ContainsKey(newJolts-currentJolts)) 
+                int difference = sortedInput[i].ownJolts - sortedInput[i-1].ownJolts;
+                if (difference <=3)
                 {
-                    countSteps[newJolts - currentJolts] += 1; 
+                    if(countSteps.ContainsKey(difference))
+                    {
+                        countSteps[difference] += 1;
+                    }
+                    else
+                    {
+                        countSteps.Add(difference, 1);
+                    }
                 }
                 else
                 {
-                    countSteps[newJolts - currentJolts] = 1;
+                    break;
                 }
-                checkedList.Add(inputs.Single(x => x.ownJolts == newJolts));
-                currentJolts = newJolts;
             }
 
             foreach(int key in countSteps.Keys)
             {
                 Console.WriteLine($"{key} => {countSteps[key]}");
             }
-            
+            Console.WriteLine( $"Difference = {countSteps[countSteps.Keys.Min()] * countSteps[countSteps.Keys.Max()]}");
 
             
         }
@@ -64,7 +69,10 @@ namespace AdventOfCode2020.Days
             {
                 inputs.Add(new Adapter(element, max));
             }
-            
+            //Adding the firts one
+            inputs.Add(new Adapter(0, max));
+            //Adding last one
+            inputs.Add(new Adapter(max, 0));
         }
     }
 }
