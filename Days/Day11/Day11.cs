@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Days
 
         public Day11()
         {
-            DayNumber = 0;
+            DayNumber = 11;
             Title = "TBD";
         }
 
