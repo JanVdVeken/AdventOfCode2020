@@ -71,7 +71,7 @@ namespace AdventOfCode2020.Days
         
         public long CountPossibilities(int input)
         {
-            tempPuzzle2.Add(input, ans);
+            long ans = 0;
 
             if (input == sortedInput.Count -1)
             {
@@ -82,7 +82,7 @@ namespace AdventOfCode2020.Days
                 return tempPuzzle2[input];
             }
 
-            long ans = 0; 
+            
             for (int i = input + 1; i < sortedInput.Count; i ++)
             {
                 if(sortedInput[i].ownJolts - sortedInput[input].ownJolts <= 3)
@@ -90,7 +90,7 @@ namespace AdventOfCode2020.Days
                     ans += CountPossibilities(i);
                 }
             }
-            
+            tempPuzzle2.Add(input, ans);
             Console.WriteLine(ans);
             return ans;
         }
