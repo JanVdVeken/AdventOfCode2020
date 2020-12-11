@@ -20,19 +20,15 @@ namespace AdventOfCode2020.Days
         public override void Puzzle1()
         {
             SeatingSystem Seats = new SeatingSystem(input);
-            Seats.loopUpdateSeating();
-            Console.WriteLine($"We have counted {Seats.countOccupiedSeats()} occupied seats.");
+            Seats.LoopUpdateSeating(false);
+            Console.WriteLine($"We have counted {Seats.CountOccupiedSeats()} occupied seats.");
         }
 
         public override void Puzzle2()
         {
             SeatingSystem Seats = new SeatingSystem(input);
-            Seats.loopUpdateSeatingInVision();
-            //Seats.UpdateSeatingInVision();
-            //Seats.PrintCurrentArray();
-            //Seats.UpdateSeatingInVision();
-            //Seats.PrintCurrentArray();
-            Console.WriteLine($"We have counted {Seats.countOccupiedSeats()} occupied seats.");
+            Seats.LoopUpdateSeating(true);
+            Console.WriteLine($"We have counted {Seats.CountOccupiedSeats()} occupied seats.");
         }
 
         public override void GatherInput()
