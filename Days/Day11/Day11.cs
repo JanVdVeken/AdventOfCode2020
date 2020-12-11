@@ -22,7 +22,6 @@ namespace AdventOfCode2020.Days
             SeatingSystem Seats = new SeatingSystem(input);
             Seats.loopUpdateSeating();
             Console.WriteLine($"We have counted {Seats.countOccupiedSeats()} occupied seats.");
-
         }
 
         public override void Puzzle2()

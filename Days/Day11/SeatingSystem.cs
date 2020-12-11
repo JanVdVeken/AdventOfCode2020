@@ -43,23 +43,24 @@ namespace Days.Day11
                     currentSeatings[y] = sb.ToString();
                 }
             }
-            for(int i = 0; i < previousSeatings[0].Count();i++)
+            var temp = true;
+            for(int i = 0; i < previousSeatings.Count();i++)
             {
-                if(previousSeatings[i].Equals(currentSeatings[i]))
+                if(!previousSeatings[i].Equals(currentSeatings[i]))
                 {
-                    return true;
+                    temp = false;
                 }
             }
             previousSeatings = new string[currentSeatings.Length];
             previousSeatings = currentSeatings.Select(a => (string)a.Clone()).ToArray();
-            return false;
+            return temp;
         }
 
         public void loopUpdateSeating()
         {
             while(!UpdateSeating())
             {
-                PrintCurrentArray();
+                //PrintCurrentArray();
                 loopUpdateSeating();
             }
         }
