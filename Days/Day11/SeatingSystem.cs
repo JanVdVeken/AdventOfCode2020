@@ -25,20 +25,18 @@ namespace Days.Day11
                 StringBuilder sb = new StringBuilder();
                 for (int x = 0; x < previousSeatings[0].Count(); x++)
                 {
-                    if (previousSeatings[y][x] == 'L' || previousSeatings[y][x] == '#')
+
+                    switch (previousSeatings[y][x])
                     {
-                        if (previousSeatings[y][x] == 'L')
-                        {
-                            sb.Append(inVision? (CheckIfXOrMoreSeatsInVisionAreTaken(x, y, 1) ? 'L' : '#') : (CheckIfXOrMoreSeatsAreTaken(x, y, 1) ? 'L' : '#'));
-                        }
-                        else
-                        {
-                            sb.Append(inVision ? (CheckIfXOrMoreSeatsInVisionAreTaken(x,y,5) ? 'L' : '#') : (CheckIfXOrMoreSeatsAreTaken(x, y, 4) ? 'L' : '#'));
-                        }
-                    }
-                    else
-                    {
-                        sb.Append('.');
+                        case 'L':
+                            sb.Append(inVision ? (CheckIfXOrMoreSeatsInVisionAreTaken(x, y, 1) ? 'L' : '#') : (CheckIfXOrMoreSeatsAreTaken(x, y, 1) ? 'L' : '#'));
+                            break;
+                        case '#':
+                            sb.Append(inVision ? (CheckIfXOrMoreSeatsInVisionAreTaken(x, y, 5) ? 'L' : '#') : (CheckIfXOrMoreSeatsAreTaken(x, y, 4) ? 'L' : '#'));
+                            break;
+                        default:
+                            sb.Append('.');
+                            break;
                     }
                     currentSeatings[y] = sb.ToString();
                 }
