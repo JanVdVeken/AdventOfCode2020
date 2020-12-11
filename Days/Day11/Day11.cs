@@ -9,16 +9,19 @@ namespace AdventOfCode2020.Days
 {
     public class Day11 : Day
     {
-        private List<string> input = new List<string>();
+        public string[] input;
 
         public Day11()
         {
             DayNumber = 11;
-            Title = "TBD";
+            Title = "Seating System";
         }
 
         public override void Puzzle1()
         {
+            SeatingSystem Seats = new SeatingSystem(input);
+            Seats.loopUpdateSeating();
+            Console.WriteLine($"We have counted {Seats.countOccupiedSeats()} occupied seats.");
 
         }
 
@@ -30,7 +33,7 @@ namespace AdventOfCode2020.Days
 
         public override void GatherInput()
         {
-            input = ReadFile().ToList();
+            input = ReadFile().ToArray();
         }
     }
 }
