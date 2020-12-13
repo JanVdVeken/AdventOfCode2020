@@ -18,5 +18,15 @@ namespace Days.Day13
         {
             return numberOfMinutes - (earliestTime % numberOfMinutes);
         }
+
+        public long GetTimeToWait(long earliestTime)
+        {
+            return numberOfMinutes - (earliestTime % numberOfMinutes);
+        }
+
+        public long GetTheRest(long earliestTime)
+        {
+            return earliestTime % numberOfMinutes;
+        }
     }
 }
