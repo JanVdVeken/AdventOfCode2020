@@ -53,7 +53,7 @@ namespace AdventOfCode2020.Days
         //}
         public override void Puzzle2()
         {
-            long timeStamp = 0;
+            long timeStamp = 100000000000000;
             bool timeStampFound = false;
             int positionInList = 0;
             long displayTimeStamp = 0;
