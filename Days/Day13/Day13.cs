@@ -10,9 +10,8 @@ namespace AdventOfCode2020.Days
     public class Day13 : Day
     {
         private List<Bus> input = new List<Bus>();
-        private List<Bus> input2 = new List<Bus>();
+        private List<Bus> inputPart2 = new List<Bus>();
         int startingTime = 1;
-        int maxAmountOfJumps = 0;
 
         public Day13()
         {
@@ -25,69 +24,31 @@ namespace AdventOfCode2020.Days
             Bus earliestBus = input.OrderBy(x => x.GetTimeToWait(startingTime)).First();
             Console.WriteLine($"Bus ID {earliestBus.numberOfMinutes} arrives after {earliestBus.GetTimeToWait(startingTime)} => {earliestBus.numberOfMinutes * earliestBus.GetTimeToWait(startingTime)} ");
         }
-        //public override void Puzzle2()
-        //{
-        //    long timeStamp = 0;
-        //    bool timeStampFound = false;
-        //    long displayTimeStamp = 0;
-        //    while (!timeStampFound)
-        //    {
 
-        //        timeStamp++;
-        //        displayTimeStamp = timeStamp;
-        //        for (int positionInList = 0; positionInList < input2.Count(); positionInList++)
-        //        {
-        //            if (input2[positionInList].GetTheRest(timeStamp) == 0)
-        //            {
-        //                timeStamp++;
-        //                positionInList++;
-        //            }
-        //            else
-        //            {
-        //                break;
-        //            }
-
-        //        }
-        //    }
-        //    Console.WriteLine(displayTimeStamp);
-        //}
         public override void Puzzle2()
         {
-            long timeStamp = 100000000000000;
-            bool timeStampFound = false;
-            int positionInList = 0;
-            long displayTimeStamp = 0;
-
-            while (!timeStampFound)
+            //Own interpretation of "Chinese remainder theorem"
+            bool timeFound = false;
+            long currentTime = 0;
+            long increment = 1;
+            int currentPositionInList = 0;
+            while (!timeFound)
             {
-                Console.WriteLine(timeStamp);
-                timeStamp++;
-                if (positionInList == 0)
+                currentTime += increment;
+                if(inputPart2[currentPositionInList].GetTheRest(currentTime + currentPositionInList) == 0)
                 {
-                    displayTimeStamp = timeStamp;
+                    increment *= inputPart2[currentPositionInList].numberOfMinutes;
+                    currentPositionInList++;
                 }
-
-                if (positionInList == input2.Count() - 1 && input2[positionInList].GetTheRest(timeStamp) == 0)
+                if(currentPositionInList == inputPart2.Count())
                 {
-                    timeStampFound = true;
-                }
-                else
-                {
-                    if (input2[positionInList].GetTheRest(timeStamp) == 0)
-                    {
-                        positionInList++;
-                    }
-                    else
-                    {
-                        positionInList = 0;
-                    }
-
+                    timeFound = true;
                 }
             }
-            Console.WriteLine($"The first time the sequence started: {displayTimeStamp}");
+            Console.WriteLine(currentTime);
+
         }
-
-
+        
         public override void GatherInput()
         {
             var lines = ReadFile().ToList();
@@ -96,14 +57,14 @@ namespace AdventOfCode2020.Days
             {
                 if (stringBus.Equals("x"))
                 {
-                    input2.Add(new Bus(1));
+                    inputPart2.Add(new Bus(1));
                 }
                 else
                 {
+                    inputPart2.Add(new Bus(int.Parse(stringBus)));
                     input.Add(new Bus(int.Parse(stringBus)));
-                    input2.Add(new Bus(int.Parse(stringBus)));
                 }
-                
+
             }
         }
     }

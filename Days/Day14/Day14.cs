@@ -24,6 +24,8 @@ namespace AdventOfCode2020.Days
         public override void Puzzle1()
         {
             string mask = zeroes.Replace("0", "X");
+
+            //Filling the memory
             foreach (string line in input)
             {
                 int memLocation;
@@ -39,15 +41,14 @@ namespace AdventOfCode2020.Days
                     value = (zeroes + Convert.ToString(int.Parse(tempLine.Split("] = ")[1]), 2)).Right(lengtOfMask);
                     //Console.WriteLine($"Mem: {memLocation} and value: {value}");
                     memory[memLocation] = Convert.ToInt64(StringExtensions.MaskValue(mask, value),2);
-                }
-                
-                
+                }               
             }
 
+            //Adding everything together
             long temp = 0;
             foreach(int key in memory.Keys)
             {
-                Console.WriteLine($"Mem: {key} and value: {memory[key]}");
+                //Console.WriteLine($"Mem: {key} and value: {memory[key]}");
                 temp += memory[key];
             }
             Console.WriteLine(temp);
