@@ -13,8 +13,6 @@ namespace AdventOfCode2020.Days
         private List<string> input = new List<string>();
         private string zeroes = "000000000000000000000000000000000000";
         private int lengtOfMask = 36;
-        private Dictionary<int, long> memory = new Dictionary<int, long>();
-
         public Day14()
         {
             DayNumber = 14;
@@ -24,7 +22,7 @@ namespace AdventOfCode2020.Days
         public override void Puzzle1()
         {
             string mask = zeroes.Replace("0", "X");
-
+            Dictionary<int, long> memory = new Dictionary<int, long>();
             //Filling the memory
             foreach (string line in input)
             {
@@ -57,8 +55,69 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
+            Dictionary<long, long> memory = new Dictionary<long, long>();
+            string mask = zeroes;
 
+            //Filling the memory
+            foreach (string line in input)
+            {
+                string memLocation;
+                string value;
+                if (line.Contains("mask"))
+                {
+                    mask = line.Split(" = ")[1];
+                }
+                else
+                {
+                    string tempLine = line.Replace("mem[", "");
+                    memLocation = (zeroes + Convert.ToString(int.Parse(tempLine.Split("] = ")[0]), 2)).Right(lengtOfMask);
+                    //Console.WriteLine($"Original memlocation = {memLocation}");
+                    //Console.WriteLine($"Mask = {mask}");
+                    memLocation = StringExtensions.MaskValueMemory(mask, memLocation);
+                    //Console.WriteLine($"Masked memlocation = {memLocation}");
+                    //At this point we have all the memories in X values => Create list of all of these
 
+                    List<string> memories = new List<string>() { "" };
+                    List<string> tempMemories = new List<string>() {};
+                    foreach (char element in memLocation)
+                    {
+                        if(element == 'X')
+                        {
+                            foreach (string memoryAdd in memories)
+                            {
+                                tempMemories.Add(memoryAdd + '0');
+                                tempMemories.Add(memoryAdd + '1');
+                            }
+                        }
+                        else
+                        {
+                            foreach(string memoryAdd in memories)
+                            {
+                                tempMemories.Add(memoryAdd + element);
+                            }
+                        }
+                        memories = tempMemories;
+                        tempMemories = new List<string>() {};
+                    }
+
+                    value = tempLine.Split("] = ")[1];
+                    foreach (string memoryLine in memories.Where(x => x.Count() == lengtOfMask))
+                    {
+                        //Console.WriteLine(memoryLine);
+                        memory[Convert.ToInt64(memoryLine,2)] = int.Parse(value);
+                    }
+
+                }
+            }
+
+            //Adding everything together
+            long temp = 0;
+            foreach (long key in memory.Keys)
+            {
+                //Console.WriteLine($"Mem: {key} and value: {memory[key]}");
+                temp += memory[key];
+            }
+            Console.WriteLine(temp);
         }
 
         public override void GatherInput()

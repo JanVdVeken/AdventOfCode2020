@@ -31,5 +31,23 @@ namespace Days.Day14
             }
             return sb.ToString();
         }
+
+        public static string MaskValueMemory(string mask, string value)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mask.Length; i++)
+            {
+                switch (mask[i])
+                {
+                    case '0':
+                        sb.Append(value[i]);
+                        break; 
+                    default:
+                        sb.Append(mask[i]);
+                        break;
+                }
+            }
+            return sb.ToString();
+        }
     }
 }
