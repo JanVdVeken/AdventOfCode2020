@@ -71,17 +71,13 @@ namespace AdventOfCode2020.Days
                 {
                     string tempLine = line.Replace("mem[", "");
                     memLocation = (zeroes + Convert.ToString(int.Parse(tempLine.Split("] = ")[0]), 2)).Right(lengtOfMask);
-                    //Console.WriteLine($"Original memlocation = {memLocation}");
-                    //Console.WriteLine($"Mask = {mask}");
                     memLocation = StringExtensions.MaskValueMemory(mask, memLocation);
-                    //Console.WriteLine($"Masked memlocation = {memLocation}");
-                    //At this point we have all the memories in X values => Create list of all of these
 
                     List<string> memories = new List<string>() { "" };
-                    List<string> tempMemories = new List<string>() {};
                     foreach (char element in memLocation)
                     {
-                        if(element == 'X')
+                        List<string> tempMemories = new List<string>() { };
+                        if (element == 'X')
                         {
                             foreach (string memoryAdd in memories)
                             {
@@ -97,7 +93,7 @@ namespace AdventOfCode2020.Days
                             }
                         }
                         memories = tempMemories;
-                        tempMemories = new List<string>() {};
+                        
                     }
 
                     value = tempLine.Split("] = ")[1];

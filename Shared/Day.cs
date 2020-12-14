@@ -31,6 +31,12 @@ namespace AdventOfCode2020.Shared
                 case "2":
                     Puzzle2();
                     break;
+                case "1p":
+                    Performance_logging(GatherInput, Puzzle1);
+                    break;
+                case "2p":
+                    Performance_logging(GatherInput, Puzzle2);
+                    break;
                 default:
                     Console.WriteLine($"Not implemented");
                     HandleSelect();
@@ -58,5 +64,32 @@ namespace AdventOfCode2020.Shared
         public abstract void Puzzle1();
 
         public abstract void Puzzle2();
+
+        public static void Performance_logging(params Action[] actions)
+        {
+            Stopwatch stopwatch = new();
+            Dictionary<string, double> timings_per_action = new();
+            Console.WriteLine("Results:");
+            foreach (var action in actions)
+            {
+                var action_name = action.GetMethodInfo().Name;
+                if (action_name != "Gather_input")
+                    Console.WriteLine(action_name);
+                stopwatch.Reset();
+                stopwatch.Start();
+                action();
+                stopwatch.Stop();
+                timings_per_action.Add(action.GetMethodInfo().Name, (double)stopwatch.ElapsedTicks / TimeSpan.TicksPerMillisecond);
+                Console.WriteLine();
+            }
+            Console.WriteLine();
+            Console.WriteLine("Performance metrics");
+            foreach (var timing in timings_per_action)
+            {
+                Console.WriteLine($"{timing.Key}: {timing.Value} ms");
+            }
+            Console.WriteLine();
+            stopwatch.Reset();
+        }
     }
 }
