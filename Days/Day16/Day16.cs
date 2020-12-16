@@ -124,13 +124,12 @@ namespace AdventOfCode2020.Days
                 columnToDelete = newColumnToDelete;
             }
             //At this point, we have a dictionary with names and columns
-            long ans = 1;
-            foreach(string key in correctLocations.Keys.Where(x => x.Contains("departure")))
-            {
-                ans *= long.Parse(myTicket.Split(",")[correctLocations[key][0]]);
-            }
+            long result = correctLocations.Keys.Where(x => x.Contains("departure"))
+                                                    .Select(x => long.Parse(myTicket.Split(",")[correctLocations[x][0]]))
+                                                    .Aggregate((value, answer) => value * answer);
+            Console.WriteLine($"The product of the values with \"departure\" = {result} ");
 
-            Console.WriteLine($"The product of the values with \"departure\" = {ans} ");
+            
         }
 
         public override void GatherInput()
