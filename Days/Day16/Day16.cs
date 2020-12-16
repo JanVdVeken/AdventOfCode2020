@@ -69,9 +69,7 @@ namespace AdventOfCode2020.Days
                     temp.Add(int.Parse(ticket.Split(",")[i]));
                 }
                 columnsValues.Add(temp);
-
             }
-
             //At this point, we have all the values of the columns in a list. The values can be check if they all fit a range.
             while(correctLocations.Count() != amountOfColums)
             {
@@ -82,15 +80,7 @@ namespace AdventOfCode2020.Days
                     int currentColumnNumber = 0;
                     foreach(List<int> column in columnsValues)
                     {
-                        bool didThisKeyWork = true;
-                        foreach (int currentNumber in column)
-                        {
-                            if (!Tickets.CheckIfTicketIsInRange(currentNumber, currentRanges))
-                            {
-                                didThisKeyWork = false;
-                            }
-                        }
-                        if (didThisKeyWork)
+                        if (column.All(x => Tickets.CheckIfTicketIsInRange(x, currentRanges)))
                         {
                             workingKey = key;
                             if(correctLocations.ContainsKey(key))
@@ -108,10 +98,7 @@ namespace AdventOfCode2020.Days
                     {
                         break;
                     }
-
-
                 }
-
                 namedRanges.Remove(workingKey);
             }
             //At this point we have a dict with the names and all possible positions of the columns.
@@ -143,7 +130,7 @@ namespace AdventOfCode2020.Days
                 ans *= long.Parse(myTicket.Split(",")[correctLocations[key][0]]);
             }
 
-            Console.WriteLine($"The product of the values with departure = {ans} ");
+            Console.WriteLine($"The product of the values with \"departure\" = {ans} ");
         }
 
         public override void GatherInput()
