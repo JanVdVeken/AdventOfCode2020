@@ -14,12 +14,18 @@ namespace AdventOfCode2020.Days
         public Day18()
         {
             DayNumber = 18;
-            Title = "TBD";
+            Title = "Operation Order";
         }
 
         public override void Puzzle1()
         {
-
+            long sum = 0;
+            foreach(string operation in input)
+            {
+                //Console.WriteLine(Operations.CalcOperation(operation));
+                sum += Operations.CalcOperation(operation);
+            }
+            Console.WriteLine($"The sum of the resulting values is {sum}");
         }
 
         public override void Puzzle2()
