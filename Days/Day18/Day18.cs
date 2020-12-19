@@ -30,7 +30,13 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
-
+            long sum = 0;
+            foreach (string operation in input)
+            {
+                //Console.WriteLine(Operations.CalcOperationFirstAddition(operation));
+                sum += Operations.CalcOperationFirstAddition(operation);
+            }
+            Console.WriteLine($"The sum of the resulting values is {sum}");
 
         }
 
