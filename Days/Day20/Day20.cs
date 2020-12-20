@@ -9,7 +9,7 @@ namespace AdventOfCode2020.Days
 {
     public class Day20 : Day
     {
-        private List<string> input = new List<string>();
+        private Dictionary<int, List<string>> tiles = new Dictionary<int, List<string>>();
 
         public Day20()
         {
@@ -19,7 +19,7 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle1()
         {
-
+            tiles.Keys.ToList().ForEach(x => Console.WriteLine($"Tile {x}: {}"));
         }
 
         public override void Puzzle2()
@@ -30,7 +30,21 @@ namespace AdventOfCode2020.Days
 
         public override void GatherInput()
         {
-            input = ReadFile().ToList();
+            List<string> input = ReadFile().ToList();
+            int tileNumber = 0;
+            foreach (string line in input.Where(x => !x.Equals(string.Empty)))
+            {
+                if (line.Contains("Tile"))
+                {
+                    tileNumber = int.Parse(line.Replace("Tile ", "").Replace(":",""));
+                    tiles.Add(tileNumber, new List<string>());
+                }
+                else
+                {
+                    tiles[tileNumber].Add(line);
+                }
+
+            }
         }
     }
 }
