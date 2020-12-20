@@ -39,6 +39,42 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
+            List<string> regexes2 = new List<string>();
+            foreach(string line in regexes)
+            {
+                switch (line)
+                {
+                    //I've replaced the given problem and changed it to a regex
+                    case "8: 42":
+                        regexes2.Add("8: ( 42 )+");
+                        break;
+                    case "11: 42 31":
+                        regexes2.Add("11: (( 42 ){n} ( 31 ){n})");
+                        break;
+                    default:
+                        regexes2.Add(line);
+                        break;
+                }
+            }
+            Dictionary<int, string> dictRegexes = MessageHelper.CreateRegexDict(regexes2);
+            
+            var ans = 0;
+            foreach (string message in messages)
+            {
+                bool temp = true;
+                for(int i =1; i< 100; i++)
+                {
+                    Regex regex0 = new Regex("^" + dictRegexes[0].Replace("n",i.ToString()) + "$");
+                    if (regex0.IsMatch(message) && temp)
+                    {
+                        //Console.WriteLine(message);
+                        ans++;
+                        temp = false;
+                    }
+                }
+
+            }
+            Console.WriteLine($"We have found {ans} matches");
 
 
         }
@@ -48,7 +84,7 @@ namespace AdventOfCode2020.Days
             input = ReadFile().ToList();
             foreach (string line in input.Where(x=>input.IndexOf(x) < input.IndexOf(string.Empty)))
             {
-                regexes.Add(line.Replace("\"",""));
+                regexes.Add(line.Replace("\"", ""));
             }
             foreach (string line in input.Where(x => input.IndexOf(x) > input.IndexOf(string.Empty)))
             {

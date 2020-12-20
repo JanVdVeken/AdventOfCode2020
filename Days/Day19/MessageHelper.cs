@@ -11,13 +11,12 @@ namespace Days.Day19
     {
         public static Dictionary<int, string> CreateRegexDict(List<string> regexes)
         {
-            Dictionary<int, string> regexesDict= new Dictionary<int, string>();
-            foreach(string line in regexes)
+            Dictionary<int, string> regexesDict = new Dictionary<int, string>();
+            regexesDict.Clear();
+            foreach (string line in regexes)
             {
                 regexesDict.Add(int.Parse(line.Split(": ")[0]), line.Split(": ")[1]);
             }
-            //regexesDict.Keys.ToList().ForEach(x => Console.WriteLine($"{x} => {regexesDict[x]}"));
-            //Console.WriteLine(solveDict(regexesDict, 0));
             regexesDict[0] = solveDict(regexesDict,0);
             return regexesDict;
         }
