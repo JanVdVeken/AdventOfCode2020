@@ -11,19 +11,94 @@ namespace Days.Day20
         private List<String> tileLines;
         public List<Tile> matchingTiles;
         public List<String> allPossibleEdges;
+        public List<String> allConnectingEdges;
+        public bool isUsed = false;
         public Tile()
         {
             tileLines = new List<string>();
             matchingTiles = new List<Tile>();
             allPossibleEdges = new List<string>();
+            allConnectingEdges = new List<string>();
         }
+        public void OrientBasedOnTop(string line)
+        {
+            int i = 0;
+            while (!line.Equals(GetTopSide()))
+            {
+                if (i < 3)
+                {
+                    RotateR(1);
+                    i++;
+                }
+                else
+                {
+                    FlipLR();
+                    FlipUD();
+                    i = 0;
+                }
+            }
+        }
+        public void OrientBasedOnLeftSide(string line)
+        {
+            int i = 0;
+            while(!line.Equals(GetLeftSide()))
+            {
+                if(i < 3)
+                {
+                    RotateR(1);
+                    i++;
+                }
+                else
+                {
+                    FlipLR();
+                    FlipUD();
+                    i = 0;
+                }
+            }
+        }
+        public string GetTopSide()
+        {
+            return tileLines.First();
+        }
+        public string GetBottomSide()
+        {
+            return tileLines.Last();
+        }
+        public string GetRightSide()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach(string line in tileLines)
+            {
+                sb.Append(line.Last());
+            }
+            return sb.ToString();
+        }
+        public string GetLeftSide()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (string line in tileLines)
+            {
+                sb.Append(line[0]);
+            }
+            return sb.ToString();
+        }
+
 
         public void AddPossibleMatchingTile(Tile possibleNeighbour)
         {
-            if(possibleNeighbour.allPossibleEdges.Intersect(allPossibleEdges).Any())
+            foreach(string edge1 in allPossibleEdges)
             {
-                AddToMatchingTiles(possibleNeighbour);
-                //possibleNeighbour.AddPossibleMatchingTile(this);
+                foreach (string edge2 in possibleNeighbour.allPossibleEdges)
+                {
+                    if(edge1.Equals(edge2))
+                    {
+                        AddToMatchingTiles(possibleNeighbour);
+                        if(!allConnectingEdges.Contains(edge1))
+                        {
+                            allConnectingEdges.Add(edge1);
+                        }
+                    }
+                }
             }
         }
         public void CalcAllEdges()
@@ -97,6 +172,10 @@ namespace Days.Day20
         public void PrintAllPossibleEdges()
         {
             allPossibleEdges.ForEach(x => Console.WriteLine(x));
+        }
+        public void PrintAllConnectingEdges()
+        {
+            allConnectingEdges.ForEach(x => Console.WriteLine(x));
         }
     }
 }
