@@ -19,26 +19,25 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle1()
         {
-            //foreach(int key in tiles.Keys)
-            //{
-            //    Console.WriteLine(key +":");
-            //    tiles[key].PrintTile();
-            //    Console.WriteLine();
-            //}
+            //tiles[tiles.Keys.ToList()[0]].PrintTile();
+            //Console.WriteLine("All possible edges:");
+            //tiles[tiles.Keys.ToList()[0]].PrintAllPossibleEdges();
+            foreach (int key1 in tiles.Keys)
+            {
+                foreach (int key2 in tiles.Keys.Where(x => x!= key1))
+                {
+                    tiles[key1].AddPossibleMatchingTile(tiles[key2]);
+                }
+            }
 
-            tiles[tiles.Keys.ToList()[0]].PrintTile();
-            
-            Console.WriteLine("\nFlippedLR:");
-            tiles[tiles.Keys.ToList()[0]].FlipLR();
-            tiles[tiles.Keys.ToList()[0]].PrintTile();
+            long ans = 1;
+            foreach (int key in tiles.Keys.Where(x => tiles[x].matchingTiles.Count == 2))
+            {
+                ans *= key;
+            }
 
-            Console.WriteLine("\nFlippedUD:");
-            tiles[tiles.Keys.ToList()[0]].FlipUD();
-            tiles[tiles.Keys.ToList()[0]].PrintTile();
+            Console.WriteLine($"Product of the corners = {ans}");
 
-            Console.WriteLine("\nFlippedR(1):");
-            tiles[tiles.Keys.ToList()[0]].RotateR(1);
-            tiles[tiles.Keys.ToList()[0]].PrintTile();
         }
 
         public override void Puzzle2()
@@ -62,8 +61,8 @@ namespace AdventOfCode2020.Days
                 {
                     tiles[tileNumber].AddToList(line);
                 }
-
             }
+            tiles.Keys.ToList().ForEach(x => tiles[x].CalcAllEdges());
         }
     }
 }

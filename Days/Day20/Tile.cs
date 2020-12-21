@@ -9,9 +9,47 @@ namespace Days.Day20
     class Tile
     {
         private List<String> tileLines;
+        public List<Tile> matchingTiles;
+        public List<String> allPossibleEdges;
         public Tile()
         {
             tileLines = new List<string>();
+            matchingTiles = new List<Tile>();
+            allPossibleEdges = new List<string>();
+        }
+
+        public void AddPossibleMatchingTile(Tile possibleNeighbour)
+        {
+            if(possibleNeighbour.allPossibleEdges.Intersect(allPossibleEdges).Any())
+            {
+                AddToMatchingTiles(possibleNeighbour);
+                //possibleNeighbour.AddPossibleMatchingTile(this);
+            }
+        }
+        public void CalcAllEdges()
+        {
+            for(int i = 1; i <= 4; i ++)
+            {
+                AddToTileLines(tileLines[0]);
+                AddToTileLines(Extensions.Reverse(tileLines[0]));
+                RotateR(1);
+           }
+        }
+
+        private void AddToMatchingTiles(Tile neighbour)
+        {
+            if (!matchingTiles.Contains(neighbour))
+            {
+                matchingTiles.Add(neighbour);
+            }
+        }
+
+        private void AddToTileLines(string line)
+        {
+            if(!allPossibleEdges.Contains(line))
+            {
+                allPossibleEdges.Add(line);
+            }
         }
 
         public void FlipLR()
@@ -42,7 +80,6 @@ namespace Days.Day20
                         {
                             tileLinesNew[j] = line[j] + tileLinesNew[j];
                         }
-                        
                     }
                 }
                 tileLines = tileLinesNew;
@@ -56,6 +93,10 @@ namespace Days.Day20
         public void PrintTile()
         {
             tileLines.ForEach(x => Console.WriteLine(x));
+        }
+        public void PrintAllPossibleEdges()
+        {
+            allPossibleEdges.ForEach(x => Console.WriteLine(x));
         }
     }
 }
