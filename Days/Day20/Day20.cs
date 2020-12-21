@@ -9,7 +9,7 @@ namespace AdventOfCode2020.Days
 {
     public class Day20 : Day
     {
-        private Dictionary<int, List<string>> tiles = new Dictionary<int, List<string>>();
+        private Dictionary<int, Tile> tiles = new Dictionary<int, Tile>();
 
         public Day20()
         {
@@ -19,7 +19,26 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle1()
         {
-            tiles.Keys.ToList().ForEach(x => Console.WriteLine($"Tile {x}: {}"));
+            //foreach(int key in tiles.Keys)
+            //{
+            //    Console.WriteLine(key +":");
+            //    tiles[key].PrintTile();
+            //    Console.WriteLine();
+            //}
+
+            tiles[tiles.Keys.ToList()[0]].PrintTile();
+            
+            Console.WriteLine("\nFlippedLR:");
+            tiles[tiles.Keys.ToList()[0]].FlipLR();
+            tiles[tiles.Keys.ToList()[0]].PrintTile();
+
+            Console.WriteLine("\nFlippedUD:");
+            tiles[tiles.Keys.ToList()[0]].FlipUD();
+            tiles[tiles.Keys.ToList()[0]].PrintTile();
+
+            Console.WriteLine("\nFlippedR(1):");
+            tiles[tiles.Keys.ToList()[0]].RotateR(1);
+            tiles[tiles.Keys.ToList()[0]].PrintTile();
         }
 
         public override void Puzzle2()
@@ -37,11 +56,11 @@ namespace AdventOfCode2020.Days
                 if (line.Contains("Tile"))
                 {
                     tileNumber = int.Parse(line.Replace("Tile ", "").Replace(":",""));
-                    tiles.Add(tileNumber, new List<string>());
+                    tiles.Add(tileNumber, new Tile());
                 }
                 else
                 {
-                    tiles[tileNumber].Add(line);
+                    tiles[tileNumber].AddToList(line);
                 }
 
             }
