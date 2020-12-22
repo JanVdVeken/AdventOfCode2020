@@ -20,20 +20,15 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle1()
         {
-            Console.WriteLine("Player 1:");
-            player1Deck.ForEach(x => Console.WriteLine(x));
-            Console.WriteLine("Player 2:");
-            player2Deck.ForEach(x => Console.WriteLine(x));
-
             while(player1Deck.Count > 0 && player2Deck.Count > 0)
             {
                 if(player1Deck.First() > player2Deck.First())
                 {
-                    DeckShuffler.FinishRound(player1Deck, player2Deck);
+                    DeckShuffler.RoundOfCombat(player1Deck, player2Deck);
                 }
                 else
                 {
-                    DeckShuffler.FinishRound(player2Deck, player1Deck);
+                    DeckShuffler.RoundOfCombat(player2Deck, player1Deck);
                 }
             }
             long ans = player1Deck.Count() == 0 ? DeckShuffler.CountResult(player2Deck) : DeckShuffler.CountResult(player1Deck);
@@ -42,8 +37,22 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
-
-
+            int gameNumber = 1;
+            int roundNumber = 1;
+            while (player1Deck.Count > 0 && player2Deck.Count > 0)
+            {
+                //Console.WriteLine($" ===== Round {roundNumber} (Game {gameNumber}) ===== ");
+                //Console.Write("P1: ");
+                //player1Deck.ForEach(x => Console.Write(x + " "));
+                //Console.WriteLine();
+                //Console.Write("P2: ");
+                //player2Deck.ForEach(x => Console.Write(x + " "));
+                //Console.WriteLine();
+                DeckShuffler.RoundOfRecursiveCombat(player1Deck, player2Deck, gameNumber);
+                roundNumber++;
+            }
+            long ans = player1Deck.Count() == 0 ? DeckShuffler.CountResult(player2Deck) : DeckShuffler.CountResult(player1Deck);
+            Console.WriteLine($"The winning player's score = {ans}");
         }
 
         public override void GatherInput()
