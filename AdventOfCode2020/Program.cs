@@ -30,6 +30,7 @@ namespace AdventOfCode2020
             new Day18(),
             new Day19(),
             new Day20(),
+            new Day21(),
         };
         static void Main(string[] args)
         {
