@@ -8,7 +8,7 @@ namespace Days.Day20
 {
     class Tile
     {
-        private List<String> tileLines;
+        public List<String> tileLines;
         public List<Tile> matchingTiles;
         public List<String> allPossibleEdges;
         public List<String> allConnectingEdges;
@@ -20,6 +20,17 @@ namespace Days.Day20
             allPossibleEdges = new List<string>();
             allConnectingEdges = new List<string>();
         }
+
+        public void RemoveBorders()
+        {
+            List<string> newTileLines = new List<string>();
+            for(int i =1; i< tileLines.Count()-1;i++)
+            {
+                newTileLines.Add(tileLines[i].Substring(1, tileLines[1].Length-2));
+            }
+            tileLines = newTileLines;
+        }
+
         public void OrientBasedOnTop(string line)
         {
             int i = 0;

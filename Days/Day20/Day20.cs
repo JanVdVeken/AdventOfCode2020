@@ -57,7 +57,7 @@ namespace AdventOfCode2020.Days
             { 
                 for (int r = 0; r < (int)Math.Sqrt(tiles.Count); r++)
                 {
-                    Console.WriteLine($"Currently at c={c}, r={r}");
+                    //Console.WriteLine($"Currently at c={c}, r={r}");
                     if (c == 0 && r == 0)
                     {
                         nextTile = tileList.Where(x => x.matchingTiles.Count == 2).ToList().First();
@@ -96,17 +96,78 @@ namespace AdventOfCode2020.Days
                 }
             }
 
-            for(int i = 0; i < (int)Math.Sqrt(tiles.Count); i++)
+            for (int i = 0; i < (int)Math.Sqrt(tiles.Count); i++)
             {
-                Console.WriteLine();
+                //Console.WriteLine();
                 for (int j = 0; j < (int)Math.Sqrt(tiles.Count); j++)
                 {
-                    Console.WriteLine();
-                    tilesInOrder[j, i].PrintTile();
+                   tilesInOrder[j, i].RemoveBorders();
                 }
             }
             //At this point, we have an array of all the grids
 
+
+            //now need to at all of this to a list of strings
+            List<string> fullImage = new List<string>();
+            for (int i = 0; i < (int)Math.Sqrt(tiles.Count); i++)
+            {
+                for (int j = 0; j < (int)Math.Sqrt(tiles.Count); j++)
+                {
+                    for (int k = 0; k < tilesInOrder[j, i].tileLines.Count; k++)
+                    {
+                        if (i == 0)
+                        {
+                            fullImage.Add(tilesInOrder[j, i].tileLines[k]);
+                        }
+                        else
+                        {
+                            fullImage[j* (tilesInOrder[0, 0].tileLines.Count) + k] += tilesInOrder[j, i].tileLines[k];
+                        }
+                    }
+                }
+            }
+            fullImage.ForEach(x => Console.WriteLine(x));
+
+            //At this point, we have one list of all the strings
+            //ToDo:
+            var count = 0;
+            foreach(string line in fullImage)
+            {
+                count += line.Count(x => x == '#');
+            }
+            for (int i = 0; i < 8; i++)
+            {
+                var countMonster = Extensions.CountSeaMonsters(fullImage);
+                if (countMonster > 0)
+                {
+                    count -= countMonster * 15;
+                    break;
+                }
+                if (i == 4)
+                {
+                    fullImage.Reverse();
+                }
+                else
+                {
+                    List<String> newFullImage = new List<string>();
+                    foreach (string line in fullImage)
+                    {
+                        for (int j = 0; j < line.Length; j++)
+                        {
+                            if (newFullImage.Count <= j)
+                            {
+                                newFullImage.Add(line[j].ToString());
+                            }
+                            else
+                            {
+                                newFullImage[j] = line[j] + newFullImage[j];
+                            }
+                        }
+                    }
+                    fullImage = newFullImage;
+                }
+            }
+            Console.WriteLine($"We have found {count} tiles of water without seamonsters");
         }
 
         public override void GatherInput()
