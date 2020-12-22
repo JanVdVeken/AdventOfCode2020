@@ -10,6 +10,7 @@ namespace AdventOfCode2020.Days
     public class Day21 : Day
     {
         private List<string> input = new List<string>();
+        private Dictionary<string, List<string>> possibleIngredientsForAllergens;
         List<Food> foods;
         public Day21()
         {
@@ -47,7 +48,7 @@ namespace AdventOfCode2020.Days
                 }
             }
 
-            Dictionary<string, List<string>> possibleIngredientsForAllergens = new Dictionary<string, List<string>>();
+            possibleIngredientsForAllergens = new Dictionary<string, List<string>>();
             allAllergens.Keys.ToList().ForEach(x => possibleIngredientsForAllergens.Add(x,allIngredients.Keys.ToList()));
             //At this point, we say that each of the allergens can be caused by every ingredient
             //This list must be reduced to the minimum
@@ -97,17 +98,20 @@ namespace AdventOfCode2020.Days
             {
                 ans += allIngredients[key];
             }
-            
-            Console.WriteLine($"The count of the ingredients that cannot possibly contain any of the allergens = {ans}");
-
-
-
+            Console.WriteLine($"Part 1: The count of the ingredients that cannot possibly contain any of the allergens = {ans}");
         }
 
         public override void Puzzle2()
         {
-
-
+            Puzzle1();
+            StringBuilder sb = new StringBuilder();
+            foreach (string allergen in possibleIngredientsForAllergens.Keys.ToList().OrderBy(x => x))
+            {
+                sb.Append(possibleIngredientsForAllergens[allergen].First());
+                sb.Append(",");
+            }
+            sb.Length--;
+            Console.WriteLine($"Part 2:{sb.ToString()}");
         }
 
         public override void GatherInput()
