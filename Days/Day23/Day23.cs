@@ -20,11 +20,28 @@ namespace AdventOfCode2020.Days
         public override void Puzzle1()
         {
             //cups.ForEach(x => Console.WriteLine(x));
-            for(int move = 1; move <= 10; move++)
+            int currrentMove = 0;
+            for (int move = 1; move <= 100; move++)
             {
                 Console.WriteLine($"-- move {move} --");
-                Cups.MakeMove(cups, move%(cups.Count-1));
+                if(currrentMove >= cups.Count)
+                {
+                    currrentMove = 0;
+                }
+                Cups.MakeMove(cups, currrentMove);
+                currrentMove++;
             }
+            Console.WriteLine($"-- Final --");
+            Cups.PrintCups(cups, -1);
+
+            StringBuilder sbFinale = new StringBuilder();
+            while (1 != cups[cups.Count()-1])
+            {
+                cups.Add(cups[0]);
+                cups.RemoveAt(0);
+            }
+            cups.ForEach(x => sbFinale.Append(x));
+            Console.WriteLine($"Cuplabels = {sbFinale.ToString().Replace("1","")}");
         }
 
         public override void Puzzle2()

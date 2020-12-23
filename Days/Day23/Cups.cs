@@ -10,26 +10,48 @@ namespace Days.Day23
     {
         public static void MakeMove(List<int> cups, int position)
         {
-            PrintCups(cups, position-1);
+            int currentCup = cups[position];
+            PrintCups(cups, position);
             List<int> pickupCups = new List<int>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 1; i <= 3; i++)
             {
-                pickupCups.Add(cups[(position + i) % (cups.Count-1)]);
+                int temp = position + i;
+                if (temp >= cups.Count())
+                {
+                    temp -= cups.Count();
+                }
+                pickupCups.Add(cups[temp]);
             }
             PrintPickUps(pickupCups);
-            int destination = cups[position];
+            int destination = cups[position] -1;
+            if (destination <= 0)
+            {
+                destination = cups.Count();
+            }
             while (pickupCups.Contains(destination))
             {
                 destination--;
-                if (destination <= 0)
+                if(destination <= 0)
                 {
-                    destination = cups.Count() - 1;
+                    destination = cups.Count();
                 }
             }
             PrintDestination(destination);
+            pickupCups.ForEach(x => cups.Remove(x));
+            int destinationIndex = cups.IndexOf(destination);
+            cups.InsertRange(destinationIndex+1, pickupCups);
+            //Remove pickups from cups
+            //Add pickups to cups after the destination
+            while(currentCup != cups[position])
+            {
+                cups.Add(cups[0]);
+                cups.RemoveAt(0);
+                
+            }
+
         }
 
-        private static void PrintCups(List<int> cups, int position)
+        public static void PrintCups(List<int> cups, int position)
         {
             StringBuilder sbConsole = new StringBuilder();
             sbConsole.Append("cups: ");
