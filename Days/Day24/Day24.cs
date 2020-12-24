@@ -25,8 +25,71 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
+            for (int i = 1; i <= 100; i++)
+            {
+                List<Hex> allTilesIncDupes = new List<Hex>();
+                foreach (Hex tile in blackTiles)
+                {
+                    allTilesIncDupes.Add(tile);
+                    allTilesIncDupes.Add(new Hex(tile.x + 1, tile.y - 1, tile.z));
+                    allTilesIncDupes.Add(new Hex(tile.x - 1, tile.y + 1, tile.z));
 
+                    allTilesIncDupes.Add(new Hex(tile.x + 1, tile.y, tile.z - 1));
+                    allTilesIncDupes.Add(new Hex(tile.x - 1, tile.y, tile.z + 1));
 
+                    allTilesIncDupes.Add(new Hex(tile.x, tile.y - 1, tile.z + 1));
+                    allTilesIncDupes.Add(new Hex(tile.x, tile.y + 1, tile.z - 1));
+                } 
+                // At this point, we have a list of all the tiles, but there might be duplicate values in this list => remove dupes
+                List<Hex> allTiles = new List<Hex>();
+                //foreach(Hex tile in allTilesIncDupes)
+                //{
+                //    if (!allTiles.Any(x => x.AreTilesEqual(tile)))
+                //    {
+                //        allTiles.Add(tile);
+                //    }
+                //}
+                allTiles = allTilesIncDupes;
+                // At this point, we have all tiles we need to check
+                List<Hex> newblackTiles = new List<Hex>();
+                foreach (Hex tile in allTiles)
+                {
+                    int blackTilesInHood = 0;
+                    for (int rangeX = -1; rangeX <= 1; rangeX++)
+                    {
+                        for (int rangeY = -1; rangeY <= 1; rangeY++)
+                        {
+                            for (int rangeZ = -1; rangeZ <= 1; rangeZ++)
+                            {
+                                if((rangeX == 0 && rangeY != 0 && rangeZ != 0) || (rangeX != 0 && rangeY == 0 && rangeZ != 0) || (rangeX != 0 && rangeY != 0 && rangeZ == 0))
+                                {
+                                    if (blackTiles.Any(temp => temp.AreTilesEqual(new Hex(tile.x + rangeX, tile.y + rangeY, tile.z + rangeZ))))
+                                    {
+                                        blackTilesInHood++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (blackTiles.Any(x => x.Equals(tile)) && (blackTilesInHood == 1 || blackTilesInHood == 2))
+                    {
+                        if (!newblackTiles.Any(x => x.AreTilesEqual(tile)))
+                        {
+                            newblackTiles.Add(tile);
+                        }
+                    }
+                    if (!blackTiles.Any(x => x.Equals(tile)) && blackTilesInHood == 2)
+                    {
+                        if (!newblackTiles.Any(x => x.AreTilesEqual(tile)))
+                        {
+                            newblackTiles.Add(tile);
+                        }
+                    }
+                }
+                blackTiles = new List<Hex>(newblackTiles);
+                Console.WriteLine($"Day {i}: {blackTiles.Count}");
+            }
+            //Console.WriteLine($"Finale: {blackTiles.Count}");
         }
 
         public override void GatherInput()
@@ -85,7 +148,7 @@ namespace AdventOfCode2020.Days
                 Hex currentTile = new Hex(currentX, currentY, currentZ);
                 if(!blackTiles.Any(x => x.AreTilesEqual(currentTile)))
                 {
-                    blackTiles.Add(new Hex(currentX, currentY, currentZ));
+                    blackTiles.Add(currentTile);
                 }
                 else
                 {
