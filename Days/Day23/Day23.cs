@@ -46,8 +46,36 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
-
-
+            for(int i = cups.Count+1; i<= 1000000; i++)
+            {
+                cups.Add(i);
+            }
+            int currrentMove = 0;
+            Console.WriteLine($"{DateTime.Now.ToString("hh:mm:ss")}: -- move {currrentMove} --");
+            for (int move = 1; move <= 10000000; move++)
+            {
+                if(move % 100000 == 0)
+                {
+                    Console.WriteLine($"{DateTime.Now.ToString("hh:mm:ss")}: -- move {move} --");
+                }
+                
+                if (currrentMove >= cups.Count)
+                {
+                    currrentMove = 0;
+                }
+                Cups.MakeMove(cups, currrentMove);
+                currrentMove++;
+            }
+            //Console.WriteLine($"-- Final --");
+            int temp = cups.IndexOf(1);
+            long temp2 = cups[temp + 1] * cups[temp + 2];
+            //Console.WriteLine($"Cuplabels = {cups[temp+1] * cups[temp+2]}");
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(@"C:\Users\Jan\Desktop\OuputD23P2.txt"))
+            {
+                file.WriteLine(cups[temp + 1]);
+                file.WriteLine(cups[temp + 2]);
+            }
         }
 
         public override void GatherInput()

@@ -11,7 +11,7 @@ namespace Days.Day23
         public static void MakeMove(List<int> cups, int position)
         {
             int currentCup = cups[position];
-            PrintCups(cups, position);
+            //PrintCups(cups, position);
             List<int> pickupCups = new List<int>();
             for (int i = 1; i <= 3; i++)
             {
@@ -22,7 +22,7 @@ namespace Days.Day23
                 }
                 pickupCups.Add(cups[temp]);
             }
-            PrintPickUps(pickupCups);
+            //PrintPickUps(pickupCups);
             int destination = cups[position] -1;
             if (destination <= 0)
             {
@@ -36,7 +36,7 @@ namespace Days.Day23
                     destination = cups.Count();
                 }
             }
-            PrintDestination(destination);
+            //PrintDestination(destination);
             pickupCups.ForEach(x => cups.Remove(x));
             int destinationIndex = cups.IndexOf(destination);
             cups.InsertRange(destinationIndex+1, pickupCups);
@@ -46,7 +46,6 @@ namespace Days.Day23
             {
                 cups.Add(cups[0]);
                 cups.RemoveAt(0);
-                
             }
 
         }
