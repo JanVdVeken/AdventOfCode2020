@@ -50,8 +50,8 @@ namespace AdventOfCode2020.Days
 
         public override void Puzzle2()
         {
-
-
+            //Not needed
+            Console.WriteLine("This was a free star!");
         }
 
         public override void GatherInput()
